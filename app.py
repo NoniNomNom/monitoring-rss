@@ -477,6 +477,7 @@ def server(input, output, session):
             with open('feeds_dict.json', 'w') as f:
                 json.dump(feeds, f)
 
+            feeds = get_json_content("feeds_dict.json")
             rval_new_feed_name.set("")
 
             try:
@@ -488,7 +489,6 @@ def server(input, output, session):
             
             except Exception as e:
                 print(e)
-                feeds = get_json_content("feeds_dict.json")
                 ui.update_checkbox_group(  
                     id = "checkbox_feeds",  
                     choices = sorted(list(feeds["feed_title"])),
@@ -526,7 +526,7 @@ def server(input, output, session):
                             "Select a feed to delete", 
                             sorted(feeds["feed_title"]),
                             selected = rval_to_del_rss()),
-                        ui.input_action_button("del_rss", "Delete RSS feed", class_="btn-warning"),
+                        ui.input_action_button("del_rss_cancel", "Cancel", class_="btn-warning"),
                         ui.input_action_button("del_rss_confirmation", "Confirm delete", class_="btn-danger")
                         ) 
         return ui_del
@@ -539,6 +539,11 @@ def server(input, output, session):
         rval_to_del_rss.set(feed_to_del)
         print(feed_to_del)
         print(rval_confirmation_delete)
+
+    @reactive.effect
+    @reactive.event(input.del_rss_cancel)
+    def _():
+        rval_confirmation_delete.set(0)
 
     @reactive.effect
     @reactive.event(input.del_rss_confirmation)
