@@ -11,6 +11,7 @@ https://posit.co/download/shiny-server/ (téléchargement et installation) <br>
 https://docs.posit.co/shiny-server/ (documentation) <br>
 
 ## Via Docker :
-- Bientôt ?<br>
+- Télécharger et installer Docker : https://www.docker.com/<br>
+- Utiliser le Dockerfile pour créer une image chez soi et lancer l'application.<br>
 
 
